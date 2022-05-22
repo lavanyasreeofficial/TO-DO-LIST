@@ -1,32 +1,77 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">  
-    <title>Todo List App in JavaScript | CodingNepal</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Iconscout Link For Icons -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="task-input">
-        <img src="bars-icon.svg" alt="icon">
-        <input type="text" placeholder="Add a new task">
-      </div>
-      <div class="controls">
-        <div class="filters">
-          <span class="active" id="all">All</span>
-          <span id="pending">Pending</span>
-          <span id="completed">Completed</span>
-        </div>
-        <button class="clear-btn">Clear All</button>
-      </div>
-      <ul class="task-box"></ul>
-    </div>
+<html lang ="en">
+<head>
+	<meta charset="UTF-8">
+	<title> TO DO LIST IN HTML CSS JAVASCRIPT </title>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="addTask">
+			<input type="text" placeholder="Add a Task">
+			<button>Add</button>
+		</div>
 
-    <script src="script.js"></script>
+		<ol class="NotCompleted">
+			<h3> NOT COMPLETED</h3>
+			<li> Task
+				<button><i class="fa fa-check"></i></button>
+				<button><i class="fa fa-trash"></i></button>
+			</li>
+		</ol>
+		<ol class="Completed">
+			<h3>COMPLETED</h3>
+			<li> Task
+				<button><i class="fa fa-trash"></i></button>
+			</li>
+		</ol>
 
-  </body>
+	</div>
+
+	<script>
+		const input = document.querySelector('input');
+		const btn = document.querySelector('.addTask > button');
+
+		btn.addEventListener('click', addList);
+
+		input.addEventListener('keyup', (e)=>{
+			(e.keyCode === 13 ? addList(e) : null);
+		})
+
+		function addList(e){
+			const NotCompleted = document.querySelector('.NotCompleted');
+			const Completed = document.querySelector('.Completed');
+
+			const newLi = document.createElement('li');
+			const checkBtn = document.createElement('button');
+			const delBtn = document.createElement('button');
+
+			checkBtn.innerHTML = '<i class= "fa fa-check"></i>';
+			delBtn.innerHTML = '<i class= "fa fa-trash"></i>';
+
+			if(input.value !==''){
+				newLi.textContent = input.value;
+				input.value = '';
+				NotCompleted.appendChild(newLi);
+				newLi.appendChild(checkBtn);
+				newLi.appendChild(delBtn);
+			}
+			checkBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+				Completed.appendChild(parent);
+				checkBtn.style.display='none';
+			});
+			delBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+				
+			});
+
+        }
+
+
+	</script>
+</body>
 </html>
